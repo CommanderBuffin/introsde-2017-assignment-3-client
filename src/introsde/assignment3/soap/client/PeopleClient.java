@@ -32,7 +32,7 @@ public class PeopleClient{
         
         String r = "";
         PrintWriter writer = new PrintWriter("assignment3.log", "UTF-8");
-        
+        callInit();
         r+=callWSDL()+"\r\n";
         r+=call1();
         r+=call2();
@@ -48,6 +48,10 @@ public class PeopleClient{
         
         writer.println(r);
         writer.close();
+    }
+    
+    public static void callInit() {
+    	people.init();
     }
     
     public static String callWSDL() {
