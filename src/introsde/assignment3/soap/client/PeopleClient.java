@@ -14,20 +14,19 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
-
-import introsde.assignment3.soap.ws.PeopleService;
 import introsde.assignment3.soap.ws.Activity;
 import introsde.assignment3.soap.ws.ActivityType;
 import introsde.assignment3.soap.ws.People;
+import introsde.assignment3.soap.ws.PeopleImplService;
 import introsde.assignment3.soap.ws.Person;
 import introsde.assignment3.soap.ws.Person.Activities;
 
 public class PeopleClient{
-	static PeopleService service;
+	static PeopleImplService service;
 	static People people;
 	
     public static void main(String[] args) throws Exception {
-        service = new PeopleService();
+        service = new PeopleImplService();
         people = service.getPeopleImplPort();
         
         String r = "";
@@ -51,7 +50,7 @@ public class PeopleClient{
     }
     
     public static void callInit() {
-    	people.init();
+    	people.initDB();
     }
     
     public static String callWSDL() {
@@ -100,7 +99,7 @@ public class PeopleClient{
     	r+="Method #3: updatePerson(Person p) => Person"+"\r\n";
     	
     	Person p = new Person();
-    	p.setId(4l);
+    	p.setIdPerson(4);
     	p.setLastname("Rossi");
     	String xmlString="";
     	JAXBContext jaxbContext;
@@ -137,11 +136,11 @@ public class PeopleClient{
     	a.setRating(3);
     	a.setStartdate("07-12-2017 01:28:00.0");
     	ActivityType at = new ActivityType();
-    	at.setName("Living");
+    	at.setAtName("Living");
     	a.setActivityType(at);
     	Activities aa = new Activities();
     	aa.getActivity().add(a);
-    	p.setActivities(aa);
+    	p.getActivities().setValue(aa);
     	
     	String xmlString="";
     	JAXBContext jaxbContext;
@@ -178,7 +177,7 @@ public class PeopleClient{
     	r+="Method #6: readPersonPreferences(Long id, String activity_type) => List<Activity>"+"\r\n";
     	r+="Parameters: id=1, activity_type=\"Game\"\r\n";
     	r+="Response: \r\n\r\n";
-    	List<Activity> aa = people.readPersonPreferences(1, "Game");
+    	List<Activity> aa = people.readPersonPreferences1(1, "Game");
     	for(Activity a : aa) {
         	r+=printActivity(a,false);
         	r+="\r\n";
@@ -203,7 +202,7 @@ public class PeopleClient{
     	r+="Method #8: readPersonPreferences(Long id, Long activity_id) => Activity"+"\r\n";
     	r+="Parameters: id=1, activity_id=1\r\n";
     	r+="Response: \r\n\r\n";
-    	Activity a = people.readPersonPreferences2(1l, 1l);
+    	Activity a = people.readPersonPreferences2(1, 1);
         r+=printActivity(a,false);
         r+="\r\n";
     	return r;
@@ -220,7 +219,7 @@ public class PeopleClient{
     	a.setRating(5);
     	a.setStartdate("07-12-2017 01:30:00.0");
     	ActivityType at = new ActivityType();
-    	at.setName("Programming");
+    	at.setAtName("Programming");
     	a.setActivityType(at);
     	
     	String xmlString="";
@@ -238,7 +237,7 @@ public class PeopleClient{
     	
     	r+="Parameters: id=1, "+xmlString+"\r\n";
     	r+="Response: \r\n\r\n";
-    	people.savePersonPreferences(1l,a);
+    	people.savePersonPreferences(1,a);
     	r+="CREATED?\r\n\r\n";
     	return r;
     }
@@ -248,14 +247,14 @@ public class PeopleClient{
     	r+="Method #10: updatePersonPreferences(Long id, Activity activity) => Activity"+"\r\n";
     	
     	Activity a = new Activity();
-    	a.setId(6l);
+    	a.setIdActivity(6);
     	a.setName("Assignment3 developement");
     	a.setDescription("Assignment3 SOAP server developement");
     	a.setPlace("Home");
     	a.setRating(4);
     	a.setStartdate("07-12-2017 00:30:00.0");
     	ActivityType at = new ActivityType();
-    	at.setName("Programming");
+    	at.setAtName("Programming");
     	a.setActivityType(at);
     	
     	String xmlString="";
@@ -273,7 +272,7 @@ public class PeopleClient{
     	
     	r+="Parameters: id=1, "+xmlString+"\r\n";
     	r+="Response: \r\n\r\n";
-    	Activity ra =people.updatePersonPreferences(1l,a);
+    	Activity ra = people.updatePersonPreferences(1,a);
     	if(ra==null)
     		return r+"Activity not found\r\n\r\n";
     	r+=printActivity(ra,false)+"\r\n";
@@ -285,7 +284,7 @@ public class PeopleClient{
     	r+="Method #11 (Extra): evaluatePersonPreferences(Long id, Activity activity, int value) => Activity"+"\r\n";
     	
     	Activity a = new Activity();
-    	a.setId(6l);
+    	a.setIdActivity(6);
     	
     	String xmlString="";
     	JAXBContext jaxbContext;
@@ -302,7 +301,7 @@ public class PeopleClient{
     	
     	r+="Parameters: id=1, value=5, "+xmlString+"\r\n";
     	r+="Response: \r\n\r\n";
-    	Activity ra =people.evaluatePersonPreferences(1l,a,5);
+    	Activity ra = people.evaluatePersonPreferences(1,a,5);
     	if(ra==null)
     		return r+"Activity not found\r\n\r\n";
     	r+=printActivity(ra,false)+"\r\n";
@@ -314,7 +313,7 @@ public class PeopleClient{
     	r+="Method #12 (Extra): getBestPersonPreference(Long id) => List<Activity>"+"\r\n";
     	r+="Parameters: id=1\r\n";
     	r+="Response: \r\n\r\n";
-    	List<Activity> aa = people.getBestPersonPreferences(1);
+    	List<Activity> aa = people.getBestPersonPreference(1);
     	for(Activity a : aa) {
         	r+=printActivity(a,false);
         }
@@ -324,11 +323,11 @@ public class PeopleClient{
     public static String printPerson(Person p) {
     	String r = "";
     	r+="PERSON\r\n"
-    			+ "Id: " + p.getId() + "\r\n"
+    			+ "Id: " + p.getIdPerson() + "\r\n"
     			+ "Firstname: " + p.getFirstname()+"\r\n"
     			+ "Lastname: " + p.getLastname() + "\r\n"
     			+ "Birthdate: " + p.getBirthdate() + "\r\n";
-    	Person.Activities aa = p.getActivities();
+    	Person.Activities aa = p.getActivities().getValue();
     	for(Activity a : aa.getActivity()) {
     		r+="\t"+printActivity(a,true);
     	}
@@ -339,24 +338,24 @@ public class PeopleClient{
     	String r = "";
     	if(indent) {
 	    	r+="ACTIVITY\r\n"
-	    			+ "\tId: " + a.getId() +"\r\n"
+	    			+ "\tId: " + a.getIdActivity() +"\r\n"
 	    			+ "\tName: " + a.getName() + "\r\n"
 	    			+ "\tDescription: " + a.getDescription() + "\r\n"
 	    			+ "\tPlace: " + a.getPlace() + "\r\n"
 	    			+ "\tRating: " + a.getRating() + "\r\n"
 	    			+ "\tStartdate: " + a.getStartdate() + "\r\n"
-	    			+ "\tActivity type: " + a.getActivityType().getName() + "\r\n";
+	    			+ "\tActivity type: " + a.getActivityType().getAtName() + "\r\n";
     	}
     	else
     	{
     		r+="ACTIVITY\r\n"
-	    			+ "Id: " + a.getId() +"\r\n"
+	    			+ "Id: " + a.getIdActivity() +"\r\n"
 	    			+ "Name: " + a.getName() + "\r\n"
 	    			+ "Description: " + a.getDescription() + "\r\n"
 	    			+ "Place: " + a.getPlace() + "\r\n"
 	    			+ "Rating: " + a.getRating() + "\r\n"
 	    			+ "Startdate: " + a.getStartdate() + "\r\n"
-	    			+ "Activity type: " + a.getActivityType().getName() + "\r\n";
+	    			+ "Activity type: " + a.getActivityType().getAtName() + "\r\n";
     	}
     	return r+"\r\n";
     }
