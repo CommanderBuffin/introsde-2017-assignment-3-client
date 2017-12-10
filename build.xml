@@ -111,7 +111,7 @@
 		</copy>
 	</target>
 	
-	<target name="client" depends="compile">
+	<target name="execute.client" depends="compile">
 		<java classname="introsde.assignment3.soap.client.PeopleClient"  classpath="${build.dir}">
 			<classpath>
 				<fileset dir="${lib.dir}"></fileset>
