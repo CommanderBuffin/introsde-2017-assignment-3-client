@@ -57,7 +57,7 @@ public class PeopleClient{
     	String r = "";
     	URL url = service.getWSDLDocumentLocation();
     	r+="WSDL URL: " + url.toString()+"\r\n\r\n";
-    	try {
+    	/*try {
 			URLConnection uc = url.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
 			String line;
@@ -68,7 +68,7 @@ public class PeopleClient{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
     	return r;
     }
     
@@ -175,9 +175,9 @@ public class PeopleClient{
     public static String call6() {
     	String r = "";
     	r+="Method #6: readPersonPreferences(Long id, String activity_type) => List<Activity>"+"\r\n";
-    	r+="Parameters: id=1, activity_type=\"Game\"\r\n";
+    	r+="Parameters: id=1, activity_type=\"Videogaming\"\r\n";
     	r+="Response: \r\n\r\n";
-    	List<Activity> aa = people.readPersonPreferences1(1, "Game");
+    	List<Activity> aa = people.readPersonPreferences1(1, "Videogaming");
     	for(Activity a : aa) {
         	r+=printActivity(a,false);
         	r+="\r\n";
