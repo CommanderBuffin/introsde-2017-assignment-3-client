@@ -24,7 +24,7 @@
 **PeopleClient.java**
 
 This class contains all the methods calls and two parsers from Person or Activity to String. 
-After every method call it concatenates all the responses and then prints them inside a log file called "assignment3.log". 
+After every method call it concatenates all the responses and then prints them inside a log file called *assignment3.log*. 
 
 **package introsde.assignment3.soap.ws**
 
@@ -48,7 +48,7 @@ The file build.xml contains all the task that will:
 ### Execution
 
 Execute the command:  
-ant execute.client  
+*ant execute.client*  
 Check assignment3.log file to see the result.
 
 ### Additional Notes
