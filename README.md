@@ -1,7 +1,7 @@
 # SDE 2017 Assigment 3 Client 
 
 
-**Assigment 3 Server - Mattia Buffa mattia.buffa-1@studenti.unitn.it**  
+**Assigment 3 Client - Mattia Buffa mattia.buffa-1@studenti.unitn.it**  
 **Assigment 3 Server WSDL heroku: http://server-as3.herokuapp.com/people?wsdl**  
 **Partner Denis Gallo**
 **Assigment 3 Partner Server repository: https://github.com/DenisGallo/introsde-2017-assignment-3-server**  
@@ -10,7 +10,7 @@
 
 **Table of Contents**
 
-- [SDE 2017 Assigment 3 Server](#sde-2017-assigment-3-Server)
+- [SDE 2017 Assigment 3 Client](#sde-2017-assigment-3-Client)
 	- [Project Description](#project-description)
 		- [Code analysis](#code-analysis)
 		- [Code tasks](#code-tasks)
