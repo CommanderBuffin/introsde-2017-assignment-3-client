@@ -168,7 +168,7 @@ public class PeopleClient{
     	r+="Parameters: id=6\r\n";
     	r+="Response: \r\n\r\n";
     	people.deletePerson(6);
-    	r+="DELETED?\r\n\r\n";
+    	r+="DELETED\r\n\r\n";
     	return r;
     }
     
@@ -238,7 +238,7 @@ public class PeopleClient{
     	r+="Parameters: id=1, "+xmlString+"\r\n";
     	r+="Response: \r\n\r\n";
     	people.savePersonPreferences(1,a);
-    	r+="CREATED?\r\n\r\n";
+    	r+="CREATED\r\n\r\n";
     	return r;
     }
     
