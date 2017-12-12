@@ -6,7 +6,7 @@
 **Partner Denis Gallo**
 **Assigment 3 Partner Server repository: https://github.com/DenisGallo/introsde-2017-assignment-3-server**  
 **Assigment 3 Partner Client repository: https://github.com/DenisGallo/introsde-2017-assignment-3-client**  
-**Assigment 3 Partner Server heroku: http://assignment2-denisgallo.herokuapp.com/sdelab**  
+**Assigment 3 Partner Server WSDL heroku: http://assignment3-denisgallo.herokuapp.com/people?wsdl**  
 
 **Table of Contents**
 
